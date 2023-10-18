@@ -38,7 +38,7 @@ button.bonus{
 .grid-container h4{
     margin-top: 0px;
 }
-#grid-numbers {        
+#grid-numbers, #grid-extra {        
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -46,11 +46,18 @@ button.bonus{
     justify-content:center;
 }
 
-#grid-numbers button {
+#grid-numbers button, #grid-extra button {
     width: 30px;
     height: 30px;
     border: 0;
     border-radius: 5px;
+}
+#grid-extra button {
+    background-color: rgb(225, 172, 37);
+    color:white;
+}
+#grid-extra button.red {
+    background-color: rgb(225, 55, 37);
 }
 
 .results-container{
@@ -80,9 +87,16 @@ button.bonus{
     );
     box-shadow: 2px 5px 5px 0px #00000077;
 }
+.mt-2{
+    margin-top: 2em;
+}
 .mb-1 {
     margin-bottom:1em;
 }
 .hidden{
     display: none!important;
+}
+.gold-button {
+    background-color: rgb(225, 172, 37);
+    color: white;
 }

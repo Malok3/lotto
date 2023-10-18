@@ -12,11 +12,14 @@
         <main>
            
             <div class="grid-container">
-                <div class="mb-1">
+                <div class="mb-1" style="text-align: left;">
                     <input type="radio" id="numbers" name="grid-selector" value="numbers" onclick="showNumbersGrid()">
-                    <label for="numbers">Select 7 numbers</label><br>
+                    <label for="numbers">Select 7 numbers</label>
+                    <span id="checkNumbers" class="hidden"> <img src="./media/checkmark.svg" style="width:15px;"></span><br>
+                    
                     <input type="radio" id="extra" name="grid-selector" value="extra" onclick="showExtraGrid()">
-                    <label for="css">Select 1 extra number</label><br>
+                    <label for="extra">Select 1 extra number</label>
+                    <span id="checkExtra" class="hidden"> <img src="./media/checkmark.svg" style="width:15px;"></span><br>
                 </div>
                            
                 <div id="grid-numbers"></div>
@@ -29,16 +32,13 @@
                     <p>Your numbers</p>
                     <div id="userNumbers"></div>
                 </div>
-                <button onclick="lotto()">Let's play!</button>
-                <div id="lotto"></div>
+                <button id="start" onclick="lotto()" class="mt-2 gold-button">Let's play!</button>
+                <div id="lotto" class="mt-2"></div>
             </div>
                 
 
            
         </main>
-        <ul>
-            <li>mettre un timer sur le message d'erruer</li>
-            <li>mettre un petit tick vert quand les 7 nombres sont selectionnés</li>
-        </ul>
+        
     </body>
 </html>

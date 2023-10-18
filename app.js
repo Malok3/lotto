@@ -30,14 +30,29 @@ function lotto() {
     plusNumber = generateRandomInteger(40)+1
     array.push(extraNumber)
     
-    document.getElementById('lotto').innerHTML=array
-    return (array)
+    for (i=0;i<array.length;i++){
+        displayResultNumber(i)
+    }
+    //document.getElementById('lotto').innerHTML=array
+    //return (array)
+
+    function displayResultNumber(i){
+        setTimeout(function () {
+            var resultEl = document.getElementById("lotto");
+            resultEl.innerHTML += array[i].value;
+          }, 1000);
+    }
 }
+
+
+
 
 let userNumbers = new Array ()
 let userExtraNumber = 0;
 let amountSelected = 0;
+let amountExtraSelected = 0;
 
+//generate numbers grid
 for (i=1;i<=40;i++){
     const button = document.createElement('button')
     button.innerText = i
@@ -48,6 +63,7 @@ for (i=1;i<=40;i++){
         document.getElementById('error').innerHTML=''
 
         if(amountSelected<7) { //user selects seven numbers
+            document.getElementById('checkNumbers').classList.add('hidden')
             if(this.hasAttribute('selected',true) ){//if user deselects a number
                 this.classList.remove('red')
                 this.removeAttribute('selected')
@@ -66,6 +82,7 @@ for (i=1;i<=40;i++){
             }
         }
         else if(amountSelected===7){
+           
             if(this.hasAttribute('selected',true) ){//if user deselects a number
                 this.classList.remove('red')
                 this.removeAttribute('selected')
@@ -76,16 +93,80 @@ for (i=1;i<=40;i++){
                 printUserSelection()
             }
             else{
-                displayError('Too much numbers selected')
+                displayError('You can only choose 7 numbers')
             }
         }
         else{
-            displayError('Too much numbers')
+            displayError('You can only choose 7 numbers')
         }
     
    
     })
 }
+
+//generate extra number grid
+for (i=1;i<=40;i++){
+    const button = document.createElement('button')
+    button.innerText = i
+    button.setAttribute('value',i)
+    document.getElementById('grid-extra').appendChild(button)
+    button.addEventListener('click', function (){
+        document.getElementById('error').innerHTML=''
+
+        if(amountExtraSelected<1) { //user selects seven numbers
+            
+            if(this.hasAttribute('selected',true) ){//if user deselects a number
+                this.classList.remove('red')
+                this.removeAttribute('selected')
+                userExtraNumber = 0
+                amountExtraSelected--
+                printUserSelection()
+            }
+            else {
+                this.classList.add('red')
+                this.setAttribute('selected',true)
+                userExtraNumber = this.getAttribute('value')
+                amountExtraSelected++
+                printUserSelection()
+            }
+        }else{
+            displayError('Only one extra number can be selected')
+        }
+    })
+}
+
+
+function printUserSelection() {
+    userNumbers.sort(function(a, b){return a - b});
+    document.getElementById('userNumbers').innerHTML = ''
+    for (i=0;i<userNumbers.length;i++){
+        document.getElementById('userNumbers').innerHTML += '<span>'+ userNumbers[i] + '</span>'
+    }
+    if (userExtraNumber>0 ){ 
+        document.getElementById('userNumbers').innerHTML += ' + <span>' + userExtraNumber + '</span>'; 
+        document.getElementById('checkExtra').classList.remove('hidden')
+    }else {
+        document.getElementById('checkExtra').classList.add('hidden')
+    }
+
+    //display checkmark when all numbers have been selected
+    if(amountSelected===7){
+        document.getElementById('checkNumbers').classList.remove('hidden')
+    }else{
+        document.getElementById('checkNumbers').classList.add('hidden')
+    }
+
+    //display start button when all numbers have been selected
+    if (amountSelected===7 && userExtraNumber>0){
+        document.getElementById('start').classList.remove('hidden')
+    }else{
+        document.getElementById('start').classList.add('hidden')
+    }
+   
+    
+    
+}
+
 
 
 function displayError(message) {
@@ -100,82 +181,12 @@ function displayError(message) {
 }
 
 
-
-function printUserSelection() {
-    userNumbers.sort(function(a, b){return a - b});
-    document.getElementById('userNumbers').innerHTML = ''
-    for (i=0;i<userNumbers.length;i++){
-        document.getElementById('userNumbers').innerHTML += '<span>'+ userNumbers[i] + '</span>'
-    }
-    if (userExtraNumber>0 ){   
-        document.getElementById('userNumbers').innerHTML += ' + <span>' + userExtraNumber + '</span>';
-    }
-}
-
-
-function showExtraGrid(){
-    document.getElementById('grid-numbers').classList.add('hidden')
-    document.getElementById('grid-extra').classList.remove('hidden')
-}
-
 function showNumbersGrid(){
     document.getElementById('grid-numbers').classList.remove('hidden')
     document.getElementById('grid-extra').classList.add('hidden')
 }
 
-
-for (i=1;i<=40;i++){
-    const button = document.createElement('button')
-    button.innerText = i
-    button.setAttribute('value',i)
-    document.getElementById('grid-extra').appendChild(button)
+function showExtraGrid(){
+    document.getElementById('grid-numbers').classList.add('hidden')
+    document.getElementById('grid-extra').classList.remove('hidden')
 }
-
-
-
-        
-        /*
-        else if(amountSelected<=8){
-
-            if (userExtraNumber>0){//user deselects extra number
-                console.log('mamaguelo')
-                this.removeAttribute('bonus')
-                this.classList.remove('bonus')
-                userExtraNumber = 0
-                amountSelected--  
-                printUserSelection()
-            }
-            else{
-                this.classList.add('bonus')
-                this.setAttribute('bonus', 'true')
-                userExtraNumber = Number(this.getAttribute('value'))
-                amountSelected++
-                printUserSelection()
-            }
-            
-        }
-        else {
-            document.getElementById('error').innerHTML='Too much numbers'
-        }*/
-
-
-
-
-        /*else if(amountSelected<=7){//user selects extra number
-            this.classList.add('bonus')
-            this.setAttribute('bonus', 'true')
-            userExtraNumber = Number(this.getAttribute('value'))
-            amountSelected++       
-        } else if(amountSelected===8){//user deselects extra number
-            if (this.hasAttribute('bonus', 'true')){
-                this.removeAttribute('bonus')
-                this.classList.remove('bonus')
-                userExtraNumber = 0
-                amountSelected--
-            }else{
-                document.getElementById('error').innerHTML='Too much numbers'
-            }
-        }
-        else{
-            document.getElementById('error').innerHTML='Too much numbers'
-        }*/    
