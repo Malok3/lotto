@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@500&family=Inclusive+Sans:ital@1&family=Knewave&display=swap');
+
+body{
+    font-family: Gabarito;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    justify-content: center;
+    width: 65%;
+    margin: auto;
+}
+button.red{
+    background-color: #003049;
+    color:white;
+    
+}
+button.bonus{
+    border:4px solid gold !important;
+    
+}
+#error {
+    margin-top: 1em;
+    color:#C1121F;
+}
+.grid-container {
+    background-color: #669BBC;
+    padding: 1em;
+    text-align: center;
+    width: 250px;
+    color: white;
+    width: 50%;
+    max-width: 50%;
+}
+
+.grid-container h4{
+    margin-top: 0px;
+}
+#grid-numbers {        
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: .3em;
+    justify-content:center;
+}
+
+#grid-numbers button {
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 5px;
+}
+
+.results-container{
+    width: 50%;
+    max-width:50%;
+    background-color: #FDF0D5;
+    padding:1em;
+    text-align: center;
+}
+#userNumbers {
+    display: flex;
+    flex-direction: row;
+    gap:0.2em;
+    flex-wrap: wrap;
+}
+#userNumbers span{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color:#000;
+    line-height: 35px;
+    background: 
+    radial-gradient(
+      circle at 30% 30%,
+      #ffff00,
+      #774400
+    );
+    box-shadow: 2px 5px 5px 0px #00000077;
+}
+.mb-1 {
+    margin-bottom:1em;
+}
+.hidden{
+    display: none!important;
+}

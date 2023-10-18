@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Identification code</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./style.css" rel="stylesheet"/>
+        <script type="text/javascript" src="./app.js" defer></script>
+        <meta name="author" content="Nicolas M">
+    </head>
+    <body>
+        <main>
+           
+            <div class="grid-container">
+                <div class="mb-1">
+                    <input type="radio" id="numbers" name="grid-selector" value="numbers" onclick="showNumbersGrid()">
+                    <label for="numbers">Select 7 numbers</label><br>
+                    <input type="radio" id="extra" name="grid-selector" value="extra" onclick="showExtraGrid()">
+                    <label for="css">Select 1 extra number</label><br>
+                </div>
+                           
+                <div id="grid-numbers"></div>
+                <div id="grid-extra" class="hidden"></div>
+                <div id="error"></div>
+            </div>
+           
+            <div class="results-container">
+                <div>
+                    <p>Your numbers</p>
+                    <div id="userNumbers"></div>
+                </div>
+                <button onclick="lotto()">Let's play!</button>
+                <div id="lotto"></div>
+            </div>
+                
+
+           
+        </main>
+        <ul>
+            <li>mettre un timer sur le message d'erruer</li>
+            <li>mettre un petit tick vert quand les 7 nombres sont selectionnés</li>
+        </ul>
+    </body>
+</html>
