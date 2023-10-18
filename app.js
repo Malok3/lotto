@@ -76,15 +76,61 @@ for (i=1;i<=40;i++){
                 printUserSelection()
             }
             else{
-                document.getElementById('error').innerHTML='Too much numbers selected'
-                setTimeout(clearError(), 2000); // 
+                displayError('Too much numbers selected')
             }
         }
         else{
-            document.getElementById('error').innerHTML='Too much numbers selected'
-            setTimeout(clearError(), 2000); // 
+            displayError('Too much numbers')
         }
-       
+    
+   
+    })
+}
+
+
+function displayError(message) {
+    var errorEl = document.getElementById("error");
+    errorEl.innerHTML = message;
+    errorEl.style.display = "block";
+
+    // hide message after 2sec
+    setTimeout(function () {
+        errorEl.style.display = "none";
+    }, 2000);
+}
+
+
+
+function printUserSelection() {
+    userNumbers.sort(function(a, b){return a - b});
+    document.getElementById('userNumbers').innerHTML = ''
+    for (i=0;i<userNumbers.length;i++){
+        document.getElementById('userNumbers').innerHTML += '<span>'+ userNumbers[i] + '</span>'
+    }
+    if (userExtraNumber>0 ){   
+        document.getElementById('userNumbers').innerHTML += ' + <span>' + userExtraNumber + '</span>';
+    }
+}
+
+
+function showExtraGrid(){
+    document.getElementById('grid-numbers').classList.add('hidden')
+    document.getElementById('grid-extra').classList.remove('hidden')
+}
+
+function showNumbersGrid(){
+    document.getElementById('grid-numbers').classList.remove('hidden')
+    document.getElementById('grid-extra').classList.add('hidden')
+}
+
+
+for (i=1;i<=40;i++){
+    const button = document.createElement('button')
+    button.innerText = i
+    button.setAttribute('value',i)
+    document.getElementById('grid-extra').appendChild(button)
+}
+
 
 
         
@@ -132,41 +178,4 @@ for (i=1;i<=40;i++){
         }
         else{
             document.getElementById('error').innerHTML='Too much numbers'
-        }*/       
-    })
-}
-function clearError(){
-    console.log('test')
-    document.getElementById('error').innerHTML=' ' 
-}
-
-
-function printUserSelection() {
-    userNumbers.sort(function(a, b){return a - b});
-    document.getElementById('userNumbers').innerHTML = ''
-    for (i=0;i<userNumbers.length;i++){
-        document.getElementById('userNumbers').innerHTML += '<span>'+ userNumbers[i] + '</span>'
-    }
-    if (userExtraNumber>0 ){   
-        document.getElementById('userNumbers').innerHTML += ' + <span>' + userExtraNumber + '</span>';
-    }
-}
-
-
-function showExtraGrid(){
-    document.getElementById('grid-numbers').classList.add('hidden')
-    document.getElementById('grid-extra').classList.remove('hidden')
-}
-
-function showNumbersGrid(){
-    document.getElementById('grid-numbers').classList.remove('hidden')
-    document.getElementById('grid-extra').classList.add('hidden')
-}
-
-
-for (i=1;i<=40;i++){
-    const button = document.createElement('button')
-    button.innerText = i
-    button.setAttribute('value',i)
-    document.getElementById('grid-extra').appendChild(button)
-}
+        }*/    
