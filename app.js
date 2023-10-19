@@ -149,16 +149,14 @@ function showExtraGrid(){
 
 let results = new Array() 
 let correctBalls = new Array();
-//let userNumberswithExtra = userNumbers
-//userNumberswithExtra.push(Number(userExtraNumber))
+
 
 function lotto() {
-
-   
+   let userNumberswithExtra = userNumbers
+   userNumberswithExtra.push(Number(userExtraNumber))
     
     document.getElementById('lotto').innerHTML=''
       
-
     //generate a random number then generate 6 others that are different from each other
     results[0]= generateRandomInteger(40)+1
     for (i=1;i<7;i++){
