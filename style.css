@@ -67,7 +67,21 @@ button.bonus{
     padding:1em;
     text-align: center;
 }
-#userNumbers {
+
+.mt-2{
+    margin-top: 2em;
+}
+.mb-1 {
+    margin-bottom:1em;
+}
+.hidden{
+    display: none!important;
+}
+.gold-button {
+    background-color: rgb(225, 172, 37);
+    color: white;
+}
+#userNumbers, #lotto {
     display: flex;
     flex-direction: row;
     gap:0.2em;
@@ -87,16 +101,18 @@ button.bonus{
     );
     box-shadow: 2px 5px 5px 0px #00000077;
 }
-.mt-2{
-    margin-top: 2em;
-}
-.mb-1 {
-    margin-bottom:1em;
-}
-.hidden{
-    display: none!important;
-}
-.gold-button {
-    background-color: rgb(225, 172, 37);
-    color: white;
+
+#lotto span{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color:#fff;
+    line-height: 35px;
+    background: 
+    radial-gradient(
+      circle at 30% 30%,
+      #f10a0a,
+      #920a01
+    );
+    box-shadow: 2px 5px 5px 0px #00000077;
 }

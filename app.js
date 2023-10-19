@@ -2,55 +2,11 @@ function generateRandomInteger(max) {
     return Math.floor(Math.random() * max);
 }
 
-
-function lotto() {
-    let array = new Array()    
-    array[0]= generateRandomInteger(40)+1
-  
-    for (i=1;i<7;i++){
-        randomNumber = generateRandomInteger(40)+1
-        if (array.includes(randomNumber)){
-            i--;
-        }else {
-            array[i]=randomNumber;
-        }
-    }
-    array.sort(function(a, b){return a - b});
-
-    //extra numbers: generating random number. If it doesn't
-    //exist already in the array, add it to array
-    for (i=0;i<array.length;i++){
-        extraNumber=generateRandomInteger(40)+1
-        if (array[i]!=extraNumber){
-            break
-        }    
-    }
-    
-    //generating plus number
-    plusNumber = generateRandomInteger(40)+1
-    array.push(extraNumber)
-    
-    for (i=0;i<array.length;i++){
-        displayResultNumber(i)
-    }
-    //document.getElementById('lotto').innerHTML=array
-    //return (array)
-
-    function displayResultNumber(i){
-        setTimeout(function () {
-            var resultEl = document.getElementById("lotto");
-            resultEl.innerHTML += array[i].value;
-          }, 1000);
-    }
-}
-
-
-
-
 let userNumbers = new Array ()
 let userExtraNumber = 0;
 let amountSelected = 0;
 let amountExtraSelected = 0;
+
 
 //generate numbers grid
 for (i=1;i<=40;i++){
@@ -76,7 +32,7 @@ for (i=1;i<=40;i++){
             else{//user selects a number 
                 this.classList.add('red')
                 this.setAttribute('selected',true)
-                userNumbers.push(this.getAttribute('value'))
+                userNumbers.push(Number(this.getAttribute('value')))
                 amountSelected++
                 printUserSelection()
             }
@@ -111,10 +67,16 @@ for (i=1;i<=40;i++){
     button.setAttribute('value',i)
     document.getElementById('grid-extra').appendChild(button)
     button.addEventListener('click', function (){
-        document.getElementById('error').innerHTML=''
+        
+        //document.getElementById('error').innerHTML=''
 
-        if(amountExtraSelected<1) { //user selects seven numbers
-            
+        if(amountExtraSelected<1 ) {     
+            this.classList.add('red')
+            this.setAttribute('selected',true)
+            userExtraNumber = this.getAttribute('value')
+            amountExtraSelected++
+            printUserSelection()
+        }else if(amountExtraSelected===1 ) { 
             if(this.hasAttribute('selected',true) ){//if user deselects a number
                 this.classList.remove('red')
                 this.removeAttribute('selected')
@@ -122,19 +84,15 @@ for (i=1;i<=40;i++){
                 amountExtraSelected--
                 printUserSelection()
             }
-            else {
-                this.classList.add('red')
-                this.setAttribute('selected',true)
-                userExtraNumber = this.getAttribute('value')
-                amountExtraSelected++
-                printUserSelection()
+            else{
+                displayError('Only one extra number can be selected')
             }
-        }else{
+        }
+        else{
             displayError('Only one extra number can be selected')
         }
     })
 }
-
 
 function printUserSelection() {
     userNumbers.sort(function(a, b){return a - b});
@@ -167,8 +125,6 @@ function printUserSelection() {
     
 }
 
-
-
 function displayError(message) {
     var errorEl = document.getElementById("error");
     errorEl.innerHTML = message;
@@ -177,9 +133,8 @@ function displayError(message) {
     // hide message after 2sec
     setTimeout(function () {
         errorEl.style.display = "none";
-    }, 2000);
+    }, 3000);
 }
-
 
 function showNumbersGrid(){
     document.getElementById('grid-numbers').classList.remove('hidden')
@@ -189,4 +144,82 @@ function showNumbersGrid(){
 function showExtraGrid(){
     document.getElementById('grid-numbers').classList.add('hidden')
     document.getElementById('grid-extra').classList.remove('hidden')
+}
+
+
+let results = new Array() 
+let correctBalls = new Array();
+//let userNumberswithExtra = userNumbers
+//userNumberswithExtra.push(Number(userExtraNumber))
+
+function lotto() {
+
+   
+    
+    document.getElementById('lotto').innerHTML=''
+      
+
+    //generate a random number then generate 6 others that are different from each other
+    results[0]= generateRandomInteger(40)+1
+    for (i=1;i<7;i++){
+        randomNumber = generateRandomInteger(40)+1
+        if (results.includes(randomNumber)){
+            i--;
+        }else {
+            results[i]=randomNumber;
+        }
+    }
+    results.sort(function(a, b){return a - b});
+
+    //extra numbers: generating random number. If it doesn't
+    //exist already in the array, add it to array
+    for (i=0;i<results.length;i++){
+        extraNumber=generateRandomInteger(40)+1
+        if (results[i]!=extraNumber){
+            break
+        }    
+    }
+
+    //generating plus number
+    plusNumber = generateRandomInteger(40)+1
+    results.push(extraNumber)
+    
+    //hide grids and show gain board
+    document.getElementById('grid-numbers').classList.add('hidden')
+    document.getElementById('grid-extra').classList.add('hidden')
+    document.getElementById('gainBoard').classList.remove('hidden')
+
+    //display results with a delay
+   
+    let currentIndex = 0;    
+    let amountCorrectBalls = 0;
+
+    function displayNextValue() {
+        if (currentIndex < results.length) {   
+        
+            //if a user number is in the result: add a decoration around the ball then add it to a new array
+            if(userNumberswithExtra.includes(results[currentIndex])){
+                console.log('yep')
+                document.getElementById('lotto').innerHTML+= '<span class="prout">'+ results[currentIndex] + '</span>'
+                currentIndex++;
+                amountCorrectBalls++
+                correctBalls.push(results[currentIndex])                
+            }else{
+                document.getElementById('lotto').innerHTML+= '<span>'+ results[currentIndex] + '</span>'
+                currentIndex++;
+            }            
+        }
+         else {
+            clearInterval(interval);
+        }
+        
+    }
+    
+    const interval = setInterval(displayNextValue, 200);
+
+    //compare userNumbers and results
+    console.log(userNumbers)
+    console.log(results)
+    console.log(correctBalls)
+   
 }
