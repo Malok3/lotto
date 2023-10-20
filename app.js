@@ -38,7 +38,7 @@ for (i=1;i<=40;i++){
             }
         }
         else if(amountSelected===7){
-           
+            
             if(this.hasAttribute('selected',true) ){//if user deselects a number
                 this.classList.remove('red')
                 this.removeAttribute('selected')
@@ -47,6 +47,7 @@ for (i=1;i<=40;i++){
                 const x = userNumbers.splice(index, 1);
                 amountSelected--
                 printUserSelection()
+                
             }
             else{
                 displayError('You can only choose 7 numbers')
@@ -55,8 +56,11 @@ for (i=1;i<=40;i++){
         else{
             displayError('You can only choose 7 numbers')
         }
-    
-   
+        if(amountSelected>6){
+            showExtraGrid()
+            document.getElementById("extra").checked = true;
+        }
+        
     })
 }
 
@@ -79,7 +83,7 @@ for (i=1;i<=40;i++){
         }else if(amountExtraSelected===1 ) { 
             if(this.hasAttribute('selected',true) ){//if user deselects a number
                 this.classList.remove('red')
-                this.removeAttribute('selected')
+                this.removeAttribute('selected')     
                 userExtraNumber = 0
                 amountExtraSelected--
                 printUserSelection()
@@ -147,77 +151,89 @@ function showExtraGrid(){
 }
 
 
-let results = new Array() 
-let correctBalls = new Array();
-
-
 function lotto() {
-   let userNumberswithExtra = userNumbers
-   userNumberswithExtra.push(Number(userExtraNumber))
-    
-    document.getElementById('lotto').innerHTML=''
-      
-    //generate a random number then generate 6 others that are different from each other
-    results[0]= generateRandomInteger(40)+1
-    for (i=1;i<7;i++){
-        randomNumber = generateRandomInteger(40)+1
-        if (results.includes(randomNumber)){
-            i--;
-        }else {
-            results[i]=randomNumber;
-        }
-    }
-    results.sort(function(a, b){return a - b});
 
-    //extra numbers: generating random number. If it doesn't
-    //exist already in the array, add it to array
-    for (i=0;i<results.length;i++){
-        extraNumber=generateRandomInteger(40)+1
-        if (results[i]!=extraNumber){
-            break
-        }    
-    }
+    if (userNumbers.length===7 && userExtraNumber > 0){
+                
+            document.getElementById('grid-selector').classList.add('hidden')
+            
+            let results = new Array() 
+            let correctBalls = new Array();
 
-    //generating plus number
-    plusNumber = generateRandomInteger(40)+1
-    results.push(extraNumber)
-    
-    //hide grids and show gain board
-    document.getElementById('grid-numbers').classList.add('hidden')
-    document.getElementById('grid-extra').classList.add('hidden')
-    document.getElementById('gainBoard').classList.remove('hidden')
+        let userNumberswithExtra = userNumbers
+        userNumberswithExtra.push(Number(userExtraNumber))
+            
+        document.getElementById('lotto').innerHTML=''
+            
+            //generate a random number then generate 6 others that are different from each other
+            results[0]= generateRandomInteger(40)+1
+            for (i=1;i<7;i++){
+                randomNumber = generateRandomInteger(40)+1
+                if (results.includes(randomNumber)){
+                    i--;
+                }else {
+                    results[i]=randomNumber;
+                }
+            }
+            results.sort(function(a, b){return a - b});
 
-    //display results with a delay
-   
-    let currentIndex = 0;    
-    let amountCorrectBalls = 0;
+            //extra numbers: generating random number. If it doesn't
+            //exist already in the array, add it to array
+            for (i=0;i<results.length;i++){
+                extraNumber=generateRandomInteger(40)+1
+                if (results[i]!=extraNumber){
+                    break
+                }    
+            }
 
-    function displayNextValue() {
-        if (currentIndex < results.length) {   
+            //generating plus number
+            plusNumber = generateRandomInteger(40)+1
+            results.push(extraNumber)
+            
+            //hide grids and show gain board
+            document.getElementById('grid-numbers').classList.add('hidden')
+            document.getElementById('grid-extra').classList.add('hidden')
+            document.getElementById('gainBoard').classList.remove('hidden')
+
+            //display results with a delay
         
-            //if a user number is in the result: add a decoration around the ball then add it to a new array
-            if(userNumberswithExtra.includes(results[currentIndex])){
-                console.log('yep')
-                document.getElementById('lotto').innerHTML+= '<span class="prout">'+ results[currentIndex] + '</span>'
-                currentIndex++;
-                amountCorrectBalls++
-                correctBalls.push(results[currentIndex])                
-            }else{
-                document.getElementById('lotto').innerHTML+= '<span>'+ results[currentIndex] + '</span>'
-                currentIndex++;
-            }            
-        }
-         else {
-            clearInterval(interval);
-        }
-        
-    }
-    
-    const interval = setInterval(displayNextValue, 200);
+            let currentIndex = 0;    
+            let amountCorrectBalls = 0;
 
-    //compare userNumbers and results
-    console.log(userNumbers)
-    console.log(results)
-    console.log(correctBalls)
-   
+            function displayNextValue() {
+                if (currentIndex < results.length) {   
+                
+                    //if a user number is in the result: add a decoration around the ball then add it to a new array
+                    if(userNumberswithExtra.includes(results[currentIndex])){
+                        console.log('yep')
+                        document.getElementById('lotto').innerHTML+= '<span class="prout">'+ results[currentIndex] + '</span>'
+                        currentIndex++;
+                        amountCorrectBalls++
+                        correctBalls.push(results[currentIndex])                
+                    }else{
+                        document.getElementById('lotto').innerHTML+= '<span>'+ results[currentIndex] + '</span>'
+                        currentIndex++;
+                    }            
+                }
+                else {
+                    clearInterval(interval);
+                }
+                
+            }
+            
+            const interval = setInterval(displayNextValue, 200);
+
+            //compare userNumbers and results
+            console.log(userNumbers)
+            console.log(results)
+            console.log(correctBalls)
+        
+    }else{
+        displayError('Please select 7 numbers and one extra')
+    }
+  
+}
+
+function reset(){
+
 }

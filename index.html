@@ -12,8 +12,8 @@
         <main>
            
             <div class="grid-container">
-                <div class="mb-1" style="text-align: left;">
-                    <input type="radio" id="numbers" name="grid-selector" value="numbers" onclick="showNumbersGrid()">
+                <div id="grid-selector" class="mb-1" style="text-align: left;">
+                    <input type="radio" id="numbers" name="grid-selector" value="numbers" onclick="showNumbersGrid()" checked />
                     <label for="numbers">Select 7 numbers</label>
                     <span id="checkNumbers" class="hidden"> <img src="./media/checkmark.svg" style="width:15px;"></span><br>
                     
@@ -24,11 +24,12 @@
                            
                 <div id="grid-numbers"></div>
                 <div id="grid-extra" class="hidden"></div>
-                <div id="gainBoard" class="">
+                <div id="gainBoard" class="hidden">
                     <ul>
                         <li></li>
                     </ul>
                 </div>
+                <button id="start" onclick="reset()" class="mt-2 gold-button hidden">New Game</button>
                 <div id="error"></div>
             </div>
            
@@ -39,6 +40,7 @@
                 </div>
                 <button id="start" onclick="lotto()" class="mt-2 gold-button">Let's play!</button>
                 <div id="lotto" class="mt-2"></div>
+                
             </div>
                 
 
