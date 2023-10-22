@@ -20,6 +20,9 @@ for (i=1;i<=40;i++){
 
         if(amountSelected<7) { //user selects seven numbers
             document.getElementById('checkNumbers').classList.add('hidden')
+            document.getElementById('introText').classList.add('hidden')
+            document.getElementById('yourNumbersMessage').classList.remove('hidden')
+            
             if(this.hasAttribute('selected',true) ){//if user deselects a number
                 this.classList.remove('red')
                 this.removeAttribute('selected')
@@ -155,8 +158,16 @@ function lotto() {
     let results = new Array() 
    
     if (userNumbers.length===7 && userExtraNumber > 0){
-            
+       
+         
+        //hide grids and show gain board
+        document.getElementById('grid-numbers').classList.add('hidden')
+        document.getElementById('grid-extra').classList.add('hidden')
+        document.getElementById('gainBoard').classList.remove('hidden')
         document.getElementById('grid-selector').classList.add('hidden')
+        document.getElementById('lottoTitle').classList.remove('hidden')
+        document.getElementById('start').classList.add('hidden')
+        
         
         let userNumberswithExtra = userNumbers
         userNumberswithExtra.push(Number(userExtraNumber))
@@ -174,22 +185,7 @@ function lotto() {
             }
         }
         results.sort(function(a, b){return a - b});
-
-        //extra numbers: generating random number. If it doesn't
-        //exist already in the array, add it to array
-        for (i=0;i<results.length;i++){
-            extraNumber=generateRandomInteger(40)+1
-            if (results[i]!=extraNumber){
-                break
-            }    
-        }
-
-        
-        //hide grids and show gain board
-        document.getElementById('grid-numbers').classList.add('hidden')
-        document.getElementById('grid-extra').classList.add('hidden')
-        document.getElementById('gainBoard').classList.remove('hidden')
-        
+        results.push(generateRandomInteger(40)+1)
 
         //compare results to user numbers then push found numbers to correctballs
         let amountCorrectBalls = 0;
@@ -200,40 +196,69 @@ function lotto() {
                 correctBalls.push(userNumberswithExtra[i]) 
             }
         }
-        console.log(correctBalls)
-       
-
+        
         //display results with a delay
         let currentIndex = 0;    
         async function displayNextValue() {
             if (currentIndex < results.length) {   
                 //if a user number is in the result: add a decoration around the ball
+
                 if(userNumberswithExtra.includes(results[currentIndex])){
                     document.getElementById('lotto').innerHTML+= '<span class="prout">'+ results[currentIndex] + '</span>'
                     currentIndex++;    
                 }else{
                     document.getElementById('lotto').innerHTML+= '<span>'+ results[currentIndex] + '</span>'
                     currentIndex++;
-                }            
+                }        
             }
             else {
                 clearInterval(interval);
             } 
+            await new Promise(resolve => setTimeout(resolve, 8000));
+
+            let winMoney = '';
+
+            if(amountCorrectBalls===1){
+                winMoney='2€'
+            }
+            if(amountCorrectBalls===2){
+                winMoney='10€'
+            }
+            if(amountCorrectBalls===3){
+                winMoney='100€'
+            }
+            if(amountCorrectBalls===4){
+                winMoney='500€'
+            }
+            if(amountCorrectBalls===5){
+                winMoney='2000€'
+            }
+            if(amountCorrectBalls===6){
+                winMoney='50000€'
+            }
+            if(amountCorrectBalls===7){
+                winMoney='1000000€'
+            }
+            document.getElementById('winningWaiting').classList.add('hidden')
+            
+            document.getElementById('winNumber').innerHTML = amountCorrectBalls;
+            document.getElementById('winMoney').innerHTML = winMoney;
+            document.getElementById('reset').classList.remove('hidden')
+            document.getElementById('winSentence').classList.remove('hidden')
+
         }
-        const interval = setInterval(displayNextValue, 200);
+        const interval = setInterval(displayNextValue, 1000);
         
         
         async function displayGain (){
             document.getElementById('gainBoard').classList.remove('hidden');
-            const ul = document.getElementById('gainBoard');
+           
             for (i=0;i<correctBalls.length;i++){
-                const li = document.createElement("li");
-                li.textContent = correctBalls.slice(0, i + 1).join(" "); // combine table values
-                ul.appendChild(li);
-
-                //document.getElementById('gainBoard').innerHTML+= '<li><span>'+ correctBalls[i] + '</span></li>'
+                document.getElementById('winningsList').innerHTML+= '<span>'+ correctBalls[i] + ' </span>'
             }
-            
+            if (amountCorrectBalls === 0){
+                document.getElementById('winningsList').innerHTML = 'No luck this time :('
+            }   
         }
 
         async function startFunctions(){
@@ -243,12 +268,13 @@ function lotto() {
 
         startFunctions();
         
+        
     }else{
         displayError('Please select 7 numbers and one extra')
     }
   
-}
+} 
 
 function reset(){
-
+    location.reload();
 }

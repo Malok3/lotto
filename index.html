@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Identification code</title>
+        <title>Lotto!</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./style.css" rel="stylesheet"/>
@@ -24,22 +24,52 @@
                            
                 <div id="grid-numbers"></div>
                 <div id="grid-extra" class="hidden"></div>
-                <div  >
-                    <ul id="gainBoard" class="hidden">
-                        
-                    </ul>
+                <div id="gainBoard" class="hidden">
+                    <div id="winningWaiting" class="dottedTitle">
+                        <p class="mt-0">Wait for your winnings</p>
+                        <div class="loading-dots">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="winningsList" ></div>
+                    <p id="winSentence" class="hidden">With <span id="winNumber"></span> numbers, you won <span id="winMoney"></span>!</p>
+                    </div>
+                    
                 </div>
-                <button id="start" onclick="reset()" class="mt-2 gold-button hidden">New Game</button>
-                <div id="error"></div>
+                    
+                    
+                    <button id="reset" onclick="reset()" class="mt-1 gold-button hidden">New Game</button>
+                    <div id="error"></div>
+                </div>
+               
+               
             </div>
            
             <div class="results-container">
-                <div>
-                    <p>Your numbers</p>
+                <div id="introText" class="dottedTitle">
+                    <p class="mt-0">Select your numbers please</p>
+                    <div class="loading-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+                
+                  
+                <div id="yourNumbersMessage" class="hidden">
+                    <p class="mt-0">Your numbers:</p>
                     <div id="userNumbers"></div>
                 </div>
-                <button id="start" onclick="lotto()" class="mt-2 gold-button">Let's play!</button>
-                <div id="lotto" class="mt-2"></div>
+              
+                <button id="start" onclick="lotto()" class="mt-2 gold-button hidden">Let's play!</button>
+                <div>
+                    <p id="lottoTitle" class="hidden">Lotto numbers:</p>
+                    <div id="lotto" class="mt-1"></div>
+                </div>
+                
                 
             </div>
                 
