@@ -136,17 +136,18 @@ button.red{
     border-radius: 50%;
     color:#fff;
     line-height: 35px;
+    background: rgb(0,48,73);
+    background: radial-gradient(circle, rgba(0,48,73,1) 0%, rgba(8,4,0,1) 100%); 
+    
+    box-shadow: 2px 5px 5px 0px #00000077;
+}
+#lotto span.prout{
     background: 
     radial-gradient(
       circle at 30% 30%,
       #F77F00,
       #964e01
     );
-    box-shadow: 2px 5px 5px 0px #00000077;
-}
-#lotto span.prout{
-    background: rgb(0,48,73);
-    background: radial-gradient(circle, rgba(0,48,73,1) 0%, rgba(8,4,0,1) 100%); 
 }
 
 #winningsList {
