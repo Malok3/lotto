@@ -185,17 +185,22 @@ function lotto() {
             }
         }
         results.sort(function(a, b){return a - b});
-        results.push(generateRandomInteger(40)+1)
+        //results.push(generateRandomInteger(40)+1)
 
-        //compare results to user numbers then push found numbers to correctballs
+        //compare results to user numbers then push found numbers to correctballs without extra number
         let amountCorrectBalls = 0;
         let correctBalls = new Array();
-        for (i=0;i<=userNumberswithExtra.length;i++){
+        for (i=0;i<=userNumberswithExtra.length-1;i++){
             if(results.includes(userNumberswithExtra[i])){
                 amountCorrectBalls++
                 correctBalls.push(userNumberswithExtra[i]) 
             }
         }
+        let extraNumberFound = false;
+        if(results.includes(userNumberswithExtra[7])){
+            extraNumberFound = true;
+        }
+
         
         //display results with a delay
         let currentIndex = 0;    
@@ -214,33 +219,39 @@ function lotto() {
             else {
                 clearInterval(interval);
             } 
-            await new Promise(resolve => setTimeout(resolve, 8000));
+            await new Promise(resolve => setTimeout(resolve, 7000));
 
-            let winMoney = '';
+            let winMoney = 0;
 
             if(amountCorrectBalls===1){
-                winMoney='2€'
+                 winMoney=2          
             }
             if(amountCorrectBalls===2){
-                winMoney='10€'
+                winMoney=10
             }
             if(amountCorrectBalls===3){
-                winMoney='100€'
+                winMoney=100
             }
             if(amountCorrectBalls===4){
-                winMoney='500€'
+                winMoney=500
             }
             if(amountCorrectBalls===5){
-                winMoney='2000€'
+                winMoney=2000
             }
             if(amountCorrectBalls===6){
-                winMoney='50000€'
+                winMoney=50000
             }
             if(amountCorrectBalls===7){
-                winMoney='1000000€'
+                winMoney=1000000
             }
+
+            if(extraNumberFound===true){
+                document.getElementById('extraFound').classList.remove('hidden')
+                let winMoneyWithExtra = winMoney*2
+                document.getElementById('winMoneyWithExtra').innerHTML=winMoneyWithExtra
+            }
+
             document.getElementById('winningWaiting').classList.add('hidden')
-            
             document.getElementById('winNumber').innerHTML = amountCorrectBalls;
             document.getElementById('winMoney').innerHTML = winMoney;
             document.getElementById('reset').classList.remove('hidden')

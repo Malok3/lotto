@@ -23,11 +23,10 @@ button.bonus{
 .grid-container {
     background-color: #FCBF49;
     padding: 1em;
-    text-align: center;
     width: 250px;
     color: #003049;
     width: 50%;
-    max-width: 50%;
+    max-width: 300px;
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -74,8 +73,8 @@ button.red{
 }
 
 .results-container{
-    width: 50%;
-    max-width:50%;
+    width: 250px;
+    max-width: 300px;
     background-color: #FCBF49;
     padding:1em;
     color:#003049;
@@ -91,6 +90,9 @@ button.red{
 }
 .mt-2{
     margin-top: 2em;
+}
+.mb-0 {
+    margin-bottom:0px;
 }
 .mb-1 {
     margin-bottom:1em;
@@ -142,6 +144,10 @@ button.red{
     );
     box-shadow: 2px 5px 5px 0px #00000077;
 }
+#lotto span.prout{
+    background: rgb(0,48,73);
+    background: radial-gradient(circle, rgba(0,48,73,1) 0%, rgba(8,4,0,1) 100%); 
+}
 
 #winningsList {
     padding: 0;
@@ -169,6 +175,8 @@ button.red{
 .dottedTitle {
     display: flex;
   gap: .5em;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .loading-dots {
     text-align: center;
